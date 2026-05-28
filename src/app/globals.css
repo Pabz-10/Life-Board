@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  /* Option A — Soft Organic / Blues Palette */
+  --bg-primary: #f4f7fb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f9fbff;
+  
+  --accent-primary: #4a7fc1;   /* Steel blue */
+  --accent-secondary: #7b9fd4; /* Periwinkle */
+  --accent-highlight: #a8c4e8; /* Soft sky blue */
+  
+  --text-primary: #1a2b3c;
+  --text-secondary: #5a6b7d;
+  --text-data: #2d4a6b;
+  
+  --border-subtle: rgba(74, 127, 193, 0.1);
+  --radius-card: 24px;
+  --shadow-card: 0 10px 25px -5px rgba(74, 127, 193, 0.05), 0 8px 10px -6px rgba(74, 127, 193, 0.05);
+  --shadow-card-hover: 0 20px 30px -10px rgba(74, 127, 193, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --color-card: var(--bg-card);
+  --color-primary: var(--accent-primary);
+  --color-secondary: var(--accent-secondary);
+  --color-highlight: var(--accent-highlight);
+  
+  --font-display: var(--font-fraunces), serif;
+  --font-body: var(--font-jakarta), sans-serif;
+  --font-mono: var(--font-dm-mono), monospace;
+  
+  --radius-xl: var(--radius-card);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-jakarta), sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(at 0% 0%, rgba(168, 196, 232, 0.15) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(123, 159, 212, 0.1) 0px, transparent 50%);
+}
+
+.dashboard-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  overflow: hidden;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  background: var(--bg-card-hover);
+}
+
+/* Custom transitions and utility animations */
+.progress-bar-fill {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transition: width 1s ease-out;
+}
+
+.noise-texture {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.02;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
