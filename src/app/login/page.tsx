@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase";
 import { motion } from "framer-motion";
-import { Shield, Mail } from "lucide-react";
+import { LogIn, Mail } from "lucide-react";
 
 export default function Login() {
   const supabase = createClient();
@@ -25,32 +25,33 @@ export default function Login() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="system-panel system-panel-glow p-8 w-full max-w-md space-y-8 flex flex-col items-center text-center"
+        transition={{ duration: 0.8, ease: [0.165, 0.84, 0.44, 1] }}
+        className="dashboard-card p-10 w-full max-w-md space-y-8 flex flex-col items-center text-center shadow-2xl"
       >
-        <div className="p-4 bg-primary/10 border border-primary/30 rounded-full">
-          <Shield className="text-primary" size={48} />
+        <div className="p-4 bg-highlight/30 rounded-3xl text-primary">
+          <LogIn size={40} />
         </div>
         
-        <div className="space-y-2">
-          <h1 className="text-3xl font-orbitron font-black text-white tracking-widest">
-            SYSTEM ACCESS
+        <div className="space-y-3">
+          <h1 className="text-4xl font-display font-bold text-primary tracking-tight">
+            Welcome Back
           </h1>
-          <p className="text-white/50 font-rajdhani uppercase tracking-widest text-sm">
-            Authenticate to begin your awakening
+          <p className="text-secondary font-body text-sm leading-relaxed">
+            Sign in to access your personal dashboard and continue your progress.
           </p>
         </div>
 
         <button 
           onClick={handleGoogleLogin}
-          className="w-full py-4 bg-white/5 border border-primary/30 hover:bg-primary/20 hover:border-primary transition-all flex items-center justify-center gap-4 text-white font-orbitron font-bold tracking-widest group"
+          className="w-full py-4 bg-primary text-white rounded-2xl font-body font-bold shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all flex items-center justify-center gap-3 group active:scale-[0.98]"
         >
-          <Mail className="group-hover:scale-110 transition-transform" />
-          SIGN IN WITH GOOGLE
+          <Mail className="group-hover:scale-110 transition-transform" size={20} />
+          Sign in with Google
         </button>
 
-        <div className="pt-4 border-t border-white/10 w-full">
-          <p className="text-[10px] text-white/20 font-rajdhani uppercase tracking-[0.2em]">
-            Warning: Only registered Hunters may access the system.
+        <div className="pt-6 border-t border-primary/5 w-full">
+          <p className="text-[10px] text-secondary/40 font-mono uppercase tracking-widest">
+            Secure authentication via Supabase & Google OAuth
           </p>
         </div>
       </motion.div>
