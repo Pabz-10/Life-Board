@@ -22,21 +22,21 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Life Board | Your Personal Dashboard",
-  description: "Track your reading, fitness, and life progress with style.",
+  title: "LifeBoard — Your Personal Dashboard",
+  description: "Track your reading, fitness, and life progress.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className="h-full scroll-smooth">
       <body
         className={`${fraunces.variable} ${plusJakartaSans.variable} ${dmMono.variable} font-body antialiased`}
       >
-        <div className="noise-texture" />
+        <div className="noise-texture" aria-hidden="true" />
         {children}
       </body>
     </html>
