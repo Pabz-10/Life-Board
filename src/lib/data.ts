@@ -13,15 +13,18 @@ export async function getProfile() {
     .single()
 
   if (!profile) {
+    // Pull first name from Google OAuth metadata
+    const fullName = user.user_metadata?.full_name || user.user_metadata?.name || ''
+    const firstName = fullName.split(' ')[0] || user.email?.split('@')[0] || 'User'
+
     const { data: newProfile, error: profileError } = await supabase
       .from('profiles')
-      .insert({ id: user.id, username: user.email?.split('@')[0] || 'User' })
+      .insert({ id: user.id, username: firstName })
       .select()
       .single()
 
     if (profileError) console.error('Error creating profile:', profileError)
 
-    // Create stats row with real tracking columns
     await supabase.from('stats').insert({
       user_id: user.id,
       books_read: 0,
@@ -59,7 +62,6 @@ export async function getDashboardData() {
     .eq('user_id', user.id)
     .single()
 
-  // Fetch recent reading log (last 14 days)
   const { data: readingLog } = await supabase
     .from('reading_log')
     .select('date, pages')
@@ -67,7 +69,6 @@ export async function getDashboardData() {
     .order('date', { ascending: false })
     .limit(14)
 
-  // Fetch recent lifting sessions (last 6 weeks)
   const { data: liftingLog } = await supabase
     .from('lifting_log')
     .select('week_label, volume_kg')
@@ -75,7 +76,6 @@ export async function getDashboardData() {
     .order('created_at', { ascending: false })
     .limit(6)
 
-  // Fetch weight log (last 30 days)
   const { data: weightLog } = await supabase
     .from('weight_log')
     .select('logged_at, weight')
